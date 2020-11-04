@@ -20,7 +20,7 @@ struct Header {
 	/// <returns></returns>
 	bool add(int element);
 
-	void expand(int caplist);
+	void expand();
 
 	/// <summary>
 	/// добавляет элемент в позицию index, все последующие элементы сдвигаются на 1 вправо

@@ -15,20 +15,27 @@ Header::~Header()
 	delete[] list;
 }
 
+void Header::expand()
+{
+	int* temp = new int[capacity * 2];
+	for (int i = 0; i < capacity; i++)
+	{
+		temp[i] = data[i];
+	}
+	delete[] data;
+	data = temp;
+	capacity *= 2;
+}
+
 bool Header::add(int element)
 {
 	if (count == capacity)
 	{
-		expand(1);
+		expand();
 	}
 	data[count] = element;
 	count++;
 	return true;
-}
-
-void Header::expand(int quantity)
-{
-	capacity += quantity;
 }
 
 bool Header::addToIndex(int index, int element)
@@ -41,7 +48,7 @@ bool Header::addToIndex(int index, int element)
 	{
 		if (count == capacity)
 		{
-			expand(1);
+			expand();
 		}
 		count++;
 
@@ -59,7 +66,7 @@ bool Header::addAll(int caplist)
 {
 	if ((caplist + count) < capacity)
 	{
-		expand(caplist);
+		expand();
 	}
 	cout << "Ёлементы: ";
 	for (int i = 0; i < caplist; i++)
@@ -82,7 +89,7 @@ bool Header::addAllToIndex(int caplist, int index)
 	{
 	if (capacity < (caplist + index))
 	{
-		expand(caplist);
+		expand();
 	}
 	count = count + caplist;
 	for (int i = count; i > index; i--)
