@@ -38,7 +38,7 @@ bool Header::add(int element)
 	return true;
 }
 
-bool Header::addToIndex(int index, int element)
+bool Header::add(int index, int element)
 {
 	if (index > count)
 	{
@@ -79,7 +79,7 @@ bool Header::addAll(int caplist)
 }
 
 
-bool Header::addAllToIndex(int caplist, int index)
+bool Header::addAll(int caplist, int index)
 {
 	if (index > count)
 	{
