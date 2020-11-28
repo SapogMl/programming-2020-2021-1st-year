@@ -1,31 +1,74 @@
-/*продемонстрировать работу всех функций
-показать, что все функции и операторы корректно работают:
-1). С пустым списком.
-2). Со списком из 1 элемента.
-3). Со списком из нескольких элементов.
+/*
+ПРОБЛЕМА: ввод списка из 3-х элементов -> удаление элемента с индексом 1 -> если после этого попытаться вывести список, возникает проблема с указателями 
+
+Видимо, это несогласование того, что знает о себе LinkedList и того, что требует
+от него оператор <<, но мне пока не удалось понять, где они разошлись :^/
+Поищу, но была бы благодарна подсказке, если она у вас навскидку найдется.
+
+Вывод списка и добавление в него элементов сами по себе работаю корректно (по 
+крайней мере, пока не сломались). 
 */
 
 #include<iostream>
+#include<clocale>
+#include<ctime>
 #include"LinkedList.h"
-
 using namespace std;
 
+void Menu()
+{
+	cout << "1 - Вывести список" << endl; 
+	cout << "2 - Добавить элемент" << endl; 
+	cout << "3 - Удалить элемент" << endl; 
+}
 
+void UserChoice(LinkedList& list, int choice)
+{
+	switch (choice)
+	{
+	case 1:
+	{
+		cout << list << endl;
+		break;
+	}
+	case 2:
+	{
+		int el = 0;
+		cout << "Элемент = ";
+		cin >> el;
+		list += el;
+		break;
+	}
+	case 3:
+	{
+		int i = 0;
+		cout << "Индекс = ";
+		cin >> i;
+		list -= i;
+		break;
+	}
+	break;
+	}
+
+}
 
 int main()
 {
-	
+	srand(time(NULL));
+	setlocale(LC_ALL, "Russian");
 	LinkedList list;
 
-	list[0] = 1;
-	list[1] = 2;
-	list[2] = 3;
-	list[3] += 4; // оператор +=
+	int choice = 0;
+	do
+	{
+		system("cls");
+		Menu();
+		cin >> choice;
+		UserChoice(list, choice);
+		system("pause");
+	} while (choice != 0);
 
-
-	cout << list << endl;
-	list -= 0;
-	cout << list << endl;
+	
 
 	return EXIT_SUCCESS;
 

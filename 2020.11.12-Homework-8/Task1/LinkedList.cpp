@@ -26,7 +26,7 @@ LinkedList::~LinkedList()
 
 bool LinkedList::indexValid(int index)
 {
-	if ((index < count) and (index >= 0))
+	if ((index < (count)) and (index >= 0))
 	{
 		return true;
 	}
@@ -179,22 +179,20 @@ int& LinkedList::operator+=(int element)
 int LinkedList::extractHead()
 {
     Cell* head_temp = head;
-    head->data = head->next->data;
-    head_temp = head->next;
-    head->next = head->next->next;
-
-    return 0;
+    int head_data = head->data;
+    head = head->next;
+    delete head_temp;
+    return head_data;
 }
 
 int LinkedList::extractTail()
 {
     Cell* new_tail = head;
     for (int i = 0; i < count - 2; new_tail = new_tail->next, i++) {}
-    tail = new_tail->next;
-    tail->data = new_tail->next->data;
-    new_tail->next = new_tail->next->next;
-
-    return count - 1;
+    int tail_data = tail->data;
+    delete tail;
+    tail = new_tail;
+    return tail_data;
 }
 
 int LinkedList::extract(int index)
@@ -248,7 +246,10 @@ LinkedList& LinkedList::operator=(const LinkedList& list)
     {
         if (head != nullptr)
         {
-            delete[] head;
+            while (head != nullptr)
+            {
+                extractHead();
+            }
         }
         count = list.count;
         head = NULL;
