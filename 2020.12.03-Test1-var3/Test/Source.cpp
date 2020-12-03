@@ -48,7 +48,7 @@ double integralPtDelete(double number)
 	return number;
 }
 
-double Euler(double x, int n)
+double Taylor(double x, int n)
 {
 	int i = 0;
 	double calc = 0;
@@ -58,7 +58,7 @@ double Euler(double x, int n)
 	{
 		calc += power(x, i) / factorial(i);
 		i++;
-		compare = integralPtDelete(integralPtDelete(calc) * power(10, n));
+		compare = integralPtDelete(integralPtDelete(calc) * power(10, n)); // содержит цифры, стоящие после n-й цифры остатка calc
 	} while (compare == 0);
 	calc -= compare * power(0.1, n);
 	
@@ -66,13 +66,12 @@ double Euler(double x, int n)
 }
 
 
-
 int main()
 {
 	double x = 0;
 	int n = 0;
 	cin >> x >> n;
-	cout << exp(x) << endl;
-	cout << Euler(x, n) << endl;;
+	cout << "Экспонента = " << exp(x) << endl;
+	cout << "Приближение = " << Taylor(x, n) << endl;;
 	return 0;
 }
