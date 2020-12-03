@@ -70,6 +70,8 @@ double Taylor(double x, int n)
 
 int main()
 {
+	setlocale(LC_ALL, "Russian");
+
 	double x = 0;
 	int n = 0;
 	cin >> x >> n;
