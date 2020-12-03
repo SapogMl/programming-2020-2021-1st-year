@@ -50,20 +50,20 @@ double integralPtDelete(double number) // вычисляет дробную часть числа
 
 double Taylor(double x, int n)
 {
-	int i = 0; // коэффициент слагаемого в формуле Тейлора
-	double calc = 0; // искомое приближение
-	double compare = 0; // цифры, стоящие после n-й цифры дробной части calc
+	int i = 0; // перебор коэффициентов в формуле Тейлора
+	double calc = 0; // искомое значение
+	double compare = 0; // дробный хвост, лежащий после n-й цифры дробной части calc
 
 	do
 	{
 		calc += power(x, i) / factorial(i);
 		i++;
-		compare = integralPtDelete(integralPtDelete(calc) * power(10, n)); 
+		compare = integralPtDelete(integralPtDelete(calc) * power(10, n));
 	} while (compare == 0);
 
-	calc -= compare * power(0.1, n); 
-	// вычитаем дробную часть calc начиная с (n+1)-й цифры
-	
+	calc -= compare * power(0.1, n);
+	// удаляем дробную часть начиная с (n+1)-й цифры
+
 	return calc;
 }
 
