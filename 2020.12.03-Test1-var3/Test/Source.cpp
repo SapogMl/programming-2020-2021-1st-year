@@ -47,36 +47,37 @@ double integralPtDelete(double number)
 	return number;
 }
 
-int length(double calc, int n)
-{
-	int uncut_tail = integralPtDelete(calc) * power(10, n);
-	int i = 0;
-	while ((integralPtDelete(uncut_tail) == 0) and (i < n))
-	{
-		uncut_tail /= 10;
-		i++;
-	}
-	cout << i << endl;
-	return i;
-}
-
 double Euler(double x, int n)
 {
 	double calc = 0;
 	int i = 0;
+	int precision = power(10, n);
+	double compare = power(10, n+1) * integralPtDelete((integralPtDelete(power(x, i) / factorial(i)))); // дробный хвост из n цифр, домноженный на 10^n
+
 	do
 	{
 		calc += power(x, i) / factorial(i); 
-		cout << power(x, i) << " " << factorial(i) << " " << calc << endl;
+		cout << integralPtDelete((integralPtDelete(power(x, i) / factorial(i)))) << " " << compare << " " << calc << endl;
 		i++;
-		// cout << calc << endl;
-	} while (length(calc, n) != 0); // прибавляем, пока знаков после запятой не станет n или больше
+		compare = power(10, n + 1) * integralPtDelete((integralPtDelete(power(x, i) / factorial(i))));
+	} while (compare < precision);
 
-	cout << power(0.1, n) << endl;
-	double tail = integralPtDelete(integralPtDelete(calc) * power(10, n))*power(0.1, n);
-	cout << tail << endl;
-	calc -= tail; 	// отрубаем ненужный хвост, если он есть
-	return(calc);
+	if (compare > precision)
+	{
+		calc += power(x, i) / factorial(i);
+
+		int cut = integralPtDelete(calc);
+		int count = 0;
+		while (count != n)
+		{
+			cout << "!";
+			cut *= 10;
+			count += 1;
+		}
+		cut = integralPtDelete(cut) * power(0.1, count);
+		calc -= cut;
+	}
+	return calc;
 }
 
 
