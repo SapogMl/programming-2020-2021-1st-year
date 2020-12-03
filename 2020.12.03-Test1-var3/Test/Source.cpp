@@ -27,7 +27,7 @@ int factorial(double inputv)
 	return inputv;
 }
 
-double integralPtDelete(double number)
+double integralPtDelete(double number) // вычисляет дробную часть числа
 {
 	double buf = number;
 	int c = 1;
@@ -50,17 +50,19 @@ double integralPtDelete(double number)
 
 double Taylor(double x, int n)
 {
-	int i = 0;
-	double calc = 0;
-	double compare = 0;
+	int i = 0; // коэффициент слагаемого в формуле Тейлора
+	double calc = 0; // искомое приближение
+	double compare = 0; // цифры, стоящие после n-й цифры дробной части calc
 
 	do
 	{
 		calc += power(x, i) / factorial(i);
 		i++;
-		compare = integralPtDelete(integralPtDelete(calc) * power(10, n)); // содержит цифры, стоящие после n-й цифры остатка calc
+		compare = integralPtDelete(integralPtDelete(calc) * power(10, n)); 
 	} while (compare == 0);
-	calc -= compare * power(0.1, n);
+
+	calc -= compare * power(0.1, n); 
+	// вычитаем дробную часть calc начиная с (n+1)-й цифры
 	
 	return calc;
 }
