@@ -31,6 +31,7 @@ double integralPtDelete(double number)
 {
 	double buf = number;
 	int c = 1;
+
 	while (buf > 10)
 	{
 		buf /= 10;
@@ -49,13 +50,13 @@ double integralPtDelete(double number)
 
 double Euler(double x, int n)
 {
-	double calc = 0;
 	int i = 0;
+	double calc = 0;
 	double compare = 0;
 
 	do
 	{
-		calc += power(x, i) / factorial(i); 
+		calc += power(x, i) / factorial(i);
 		i++;
 		compare = integralPtDelete(integralPtDelete(calc) * power(10, n));
 	} while (compare == 0);
