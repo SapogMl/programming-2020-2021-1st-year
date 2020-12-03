@@ -1,4 +1,3 @@
-/* 
 #include<iostream>
 #include<cmath>
 #include<iomanip>
@@ -9,51 +8,56 @@ double Taylor(double x, int n)
 {
 	double add = 1;
 	double calc = 1;
-	double frac = 0; // дробная часть текущего calc с позиции n+1
 	int i = 1;
 	int pwr = 10;
 
-	double buf = 0;
-	int length = 0;
+	for (int j = 0; j < n - 1; j++)
+	{
+		pwr *= 10;
+	}
+
+	int tenN = pwr;
+	double frac = 0;
+	double tail = 0;
+
 
 	while (frac == 0)
 	{
 		add *= (x / i);
 		calc += add;
-		buf = calc;
+		i++;
+		tenN = pwr;
+
 		frac = calc;
-
-		while (buf > 1) // находим дробную часть calc
+		while (frac >= 1)
 		{
-			buf /= 10;
-			length += 1;
-		}
-		for (int j = 0; j < n; j++)
-		{
-			pwr = 10;
-			for (int k = 0; k < length; i++)
+			while (frac >= tenN)
 			{
-				pwr *= 10;
+				frac -= tenN;
 			}
-			while (frac > (pwr / 10))
-			{
-				frac -= pwr;
-			}
-			length -= 1;
+			tenN /= 10;
 		}
 
-		pwr = 10;
-		for (int k = 0; k < n; k++) { pwr *= 10;  }
-		frac *= pwr;
-		int whole = frac;
-		frac -= whole;
-
-		if (frac != 0)
+		if (frac != 0) 
 		{
+			frac *= pwr;
+			tenN = pwr;
+
+			while (frac >= 1)
+			{
+				while (frac >= tenN)
+				{
+					frac -= tenN;
+				}
+				tenN /= 10;
+			}
+
 			frac /= pwr;
 			calc -= frac;
 		}
-	}
+
+	} 
+
 
 	return calc;
 }
@@ -70,4 +74,3 @@ int main()
 	cout << "Приближение = " << Taylor(x, n) << endl;;
 	return 0;
 }
- */

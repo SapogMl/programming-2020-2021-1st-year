@@ -1,3 +1,4 @@
+/*
 #include<iostream>
 #include<cmath>
 #include<iomanip>
@@ -79,3 +80,4 @@ int main()
 	cout << "Приближение = " << Taylor(x, n) << endl;;
 	return 0;
 }
+*/
