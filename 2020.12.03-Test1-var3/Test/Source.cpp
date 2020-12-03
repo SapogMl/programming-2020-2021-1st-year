@@ -51,32 +51,16 @@ double Euler(double x, int n)
 {
 	double calc = 0;
 	int i = 0;
-	int precision = power(10, n);
-	double compare = power(10, n+1) * integralPtDelete((integralPtDelete(power(x, i) / factorial(i)))); // дробный хвост из n цифр, домноженный на 10^n
+	double compare = 0;
 
 	do
 	{
 		calc += power(x, i) / factorial(i); 
-		cout << integralPtDelete((integralPtDelete(power(x, i) / factorial(i)))) << " " << compare << " " << calc << endl;
 		i++;
-		compare = power(10, n + 1) * integralPtDelete((integralPtDelete(power(x, i) / factorial(i))));
-	} while (compare < precision);
-
-	if (compare > precision)
-	{
-		calc += power(x, i) / factorial(i);
-
-		int cut = integralPtDelete(calc);
-		int count = 0;
-		while (count != n)
-		{
-			cout << "!";
-			cut *= 10;
-			count += 1;
-		}
-		cut = integralPtDelete(cut) * power(0.1, count);
-		calc -= cut;
-	}
+		compare = integralPtDelete(integralPtDelete(calc) * power(10, n));
+	} while (compare == 0);
+	calc -= compare * power(0.1, n);
+	
 	return calc;
 }
 
