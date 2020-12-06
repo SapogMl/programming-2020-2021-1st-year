@@ -52,14 +52,9 @@
 !/2020.10.08-Homework-4/Task1/Task1.vcxproj.user
 !/2020.10.08-Homework-4/2020.10.08-Homework-4.sln
 
-/2020.10.15-Homework-5/
-!/2020.10.15-Homework-5/Task1/Source.cpp
-!/2020.10.15-Homework-5/Task1/ArrayList.cpp
-!/2020.10.15-Homework-5/Task1/ArrayList.h
-!/2020.10.15-Homework-5/Task1/Task1.vcxproj
-!/2020.10.15-Homework-5/Task1/Task1.vcxproj.filters
-!/2020.10.15-Homework-5/Task1/Task1.vcxproj.user
-!/2020.10.15-Homework-5/2020.10.15-Homework-5.sln
+/2020.10.15-Homework-5/Task1/Debug/
+/2020.10.15-Homework-5/Debug/
+/2020.10.15-Homework-5/.vs/
 
 /2020.11.12-Homework-8/Task1/Debug/
 /2020.11.12-Homework-8/Debug/
