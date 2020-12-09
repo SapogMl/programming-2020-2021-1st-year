@@ -6,8 +6,7 @@ using namespace std;
 ArrayList::ArrayList(const ArrayList& list)
 {
 	count = list.count;
-	capacity = list.count;
-	data = new int[count];
+	capacity = list.capacity;
 	for (int i = 0; i < count; data[i] = list.data[i], i++) {}
 	str = nullptr;
 }
@@ -15,6 +14,33 @@ ArrayList::ArrayList(const ArrayList& list)
 ArrayList::~ArrayList()
 {
 	clear();
+}
+
+void ArrayList::expand()
+{
+	int* newData = new int[capacity + 1];
+	for (int i = 0; i < count; newData[i] = data[i], i++) {}
+	capacity++;
+	delete[] data;
+	data = newData;
+	delete[] newData;
+}
+
+int ArrayList::numLength(int number)
+{
+	if (number < 0)
+	{
+		return numLength(-number) + 1;
+	}
+
+	int counter = 0;
+	while (number > 0)
+	{
+		number /= 10;
+		counter++;
+	}
+
+	return counter;
 }
 
 void ArrayList::addToStr(int& index, char symbol)
@@ -26,16 +52,19 @@ void ArrayList::addToStr(int& index, char symbol)
 
 void ArrayList::addToStr(int& index, int number)
 {
-	if (number < 0)
+	int nomL = (number < 0 ? (numLength(number) - 1) : numLength(number));
+
+	if (nomL < numLength(number))
 	{
 		addToStr(index, '-');
+		number = -number;
 	}
-	for (int i = index; i < (number < 0 ? index + numLength(number) - 1 : index + numLength(number)); i++)
+	for (int i = index + nomL - 1; i >= index; i--)
 	{
-		str[i] = number % 10;
+		str[i] = '0' + number % 10; // а как сделать так, чтобы нули тоже выводились?
 		number /= 10;
 	}
-	index += numLength(number);
+	index += nomL;
 }
 
 bool ArrayList::add(int element)
@@ -44,8 +73,8 @@ bool ArrayList::add(int element)
 	{
 		expand();
 	}
+	data[count] = element;
 	count++;
-	set(count - 1, element);
 	return true;
 }
 
@@ -55,20 +84,73 @@ bool ArrayList::add(int index, int element)
 	{
 		return false;
 	}
-	if (index == count - 1)
-	{
-		add(element);
-		return true;
-	}
 
 	if (length() == capacity)
 	{
 		expand();
 	}
 	count++;
-	for (int i = index; i < count - 1; set(i + 1, get(i)), i++) {}
+	for (int i = count; i > index; set(i, get(i - 1)), i--) {}
 	set(index, element);
 
+	return true;
+}
+
+bool ArrayList::addAll(ArrayList& list)
+{
+	for (int i = 0; i < list.length(); i++)
+	{
+		add(list.data[i]);
+	}
+	return true;
+}
+
+bool ArrayList::addAll(int index, ArrayList& list)
+{
+	for (int i = 0; i < list.length(); i++)
+	{
+		add(index + i, list.data[i]);
+	}
+	return true;
+}
+
+void ArrayList::clear()
+{
+	delete[] data;
+	delete[] str;
+	count = 0;
+}
+
+bool ArrayList::contains(int element)
+{
+	for (int i = 0; i < length(); i++)
+	{
+		if (data[i] == element)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+int ArrayList::get(int index)
+{
+	if ((index < 0) or (index >= length()))
+	{
+		return -1;
+	}
+
+	return data[index];
+}
+
+bool ArrayList::set(int index, int element)
+{
+	if ((index < 0) or (index >= length()))
+	{
+		return false;
+	}
+
+	data[index] = element;
 	return true;
 }
 
@@ -103,7 +185,13 @@ char* ArrayList::toString()
 	}
 
 	int index = 0;
-	int stringL = numLength(length()) + numLength(capacity) + 3;
+	int stringL = numLength(length()) + numLength(capacity) + 6 + 2 * (count - 1);
+
+	for (int i = 0; i < count; i++)
+	{
+		stringL += numLength(data[i]);
+	}
+
 	str = new char[stringL];
 
 	addToStr(index, '[');
@@ -111,6 +199,22 @@ char* ArrayList::toString()
 	addToStr(index, '/');
 	addToStr(index, capacity);
 	addToStr(index, ']');
+	addToStr(index, ' ' );
+	addToStr(index, '{');
+
+	for (int i = 0; i < count; i++)
+	{
+		addToStr(index, data[i]);
+		if (i == count - 1)
+		{
+			addToStr(index, '}');
+		}
+		else
+		{
+			addToStr(index, ',');
+			addToStr(index, ' ');
+		}
+	}
 
 	return str;
 }
@@ -149,74 +253,4 @@ bool ArrayList::swap(int index1, int index2)
 int ArrayList::length()
 {
 	return count;
-}
-
-void ArrayList::clear()
-{
-	if (data != nullptr)
-	{ 
-		delete[] data;
-		data == nullptr;
-		count = 0;
-	}
-}
-
-bool ArrayList::contains(int element)
-{
-	for (int i = 0; i < length(); i++)
-	{
-		if (data[i] == element)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-int ArrayList::get(int index)
-{
-	if ((index < 0) or (index >= length()))
-	{
-		return -1;
-	}
-
-	return data[index];
-}
-
-bool ArrayList::set(int index, int element)
-{
-	if ((index < 0) or (index >= length()))
-	{
-		return -1;
-	}
-
-	data[index] = element;
-	return true;
-}
-
-void ArrayList::expand()
-{
-	int* newData = new int[capacity + 1];
-	for (int i = 0; i < capacity; newData[i] = data[i], i++) {}
-	capacity++;
-	delete[] data;
-	data = newData;
-	delete[] newData; // а надо?
-}
-
-int ArrayList::numLength(int number)
-{
-	if (number < 0)
-	{
-		return numLength(-number) + 1;
-	}
-
-	int counter = 0;
-	while (number > 0)
-	{
-		number /= 10;
-		counter++;
-	}
-
-	return counter;
 }
