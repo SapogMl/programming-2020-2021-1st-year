@@ -1,7 +1,7 @@
 struct ArrayList
 {
 private:
-	int count;
+	int count; 
 	int capacity;
 	int* data;
 	char* str;
@@ -12,7 +12,7 @@ public:
 	~ArrayList();
 
 private:
-	void expand(int deltaLength); 
+	void expand(); 
 	int numLength(int number);
 	void addSymbolToStr(int& index, char symbol); 
 	void addNumberToStr(int& index, int number);

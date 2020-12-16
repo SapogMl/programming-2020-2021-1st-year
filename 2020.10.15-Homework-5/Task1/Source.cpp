@@ -8,14 +8,11 @@ using namespace std;
 void Menu()
 {
 	cout << "0 Ч ¬ыход" << endl;
-	cout << "х 1 Ч ƒобавить в список 10 случайных положительных двузначных чисел (по индексу) - см. комментарии" << endl; 
-	// при выводе в конце строки образуютс€ рандомные символы, которых в рамках вместимости str там быть не может
-	// в (неизвестной) зависимости от того, что генерируетс€, код крашитс€ после 3-4 добавлений без видимой закономерности и с непон€тными ошибками
-	// ¬вод: 1, индекс = 0 Ч повтор€ть, пока все не полетит
-	cout << "2 Ч ƒобавить в список 10 случайных отрицательных двузначных чисел (в конец)" << endl;
+	cout << "1 Ч ƒобавить в список 10 (см. комментарий) случайных положительных двузначных чисел" << endl;
+	cout << "2 Ч ƒобавить в список 10 случайных отрицательных двузначных чисел" << endl;
 	cout << "3 Ч ѕомен€ть местами первый минимальный и последний максимальный элемент" << endl;
 	cout << "4 Ч ѕеремешать все элементы массива" << endl;
-	cout << "5 Ч «аменить каждый отрицательный элемент массива на 0" << endl;
+	cout << "((см. комментарий)) 5 Ч «аменить каждый отрицательный элемент массива на 0" << endl; // оно как бы работает, но не выводит нули ни в каком виде. пофиксить как-то можно?
 	cout << "6 Ч ¬ывести массив" << endl;
 }
 
@@ -25,64 +22,80 @@ void UserChoice(ArrayList& s, int choice)
 	{
 	case 1:
 	{
-		ArrayList list;
-		int a = 0;
+		ArrayList randlist;
 
-		int index = 0;
-		cout << "»ндекс = ";
-		cin >> index;
-
-		for (int i = 0; i < 10; i++)
+		int list_el = 0;
+		for (int i = 0; i < 5; i++)
 		{
-			a = rand() % 100;
-			list.add(a > 9 ? a : a + 10);
+			list_el = rand() % 100;
+			randlist.add(list_el > 9 ? list_el : list_el + 10);
 		}
-		s.addAll(index, list);
-		cout << s.toString() << endl;
+		
+		if (!s.isEmpty())
+		{
+			int index = 0;
+			cout << "»ндекс = ";
+			cin >> index;
+			s.addAll(index, randlist);
+		}
+		else
+		{
+			s.addAll(randlist);
+		}
 		break;
 	}
 	case 2:
 	{
-		ArrayList list;
-		int a = 0;
+		ArrayList randlist;
 
-		for (int i = 0; i < 10; i++)
+		int list_el = 0;
+		for (int i = 0; i < 5; i++)
 		{
-			a = -(rand() % 100);
-			list.add(a < -9 ? a : a - 10);
+			list_el = rand() % 100;
+			randlist.add(list_el > 9 ? -(list_el) : -(list_el + 10));
 		}
-		s.addAll(list);
-		cout << s.toString() << endl;
+
+		if (!s.isEmpty())
+		{
+			int index = 0;
+			cout << "»ндекс = ";
+			cin >> index;
+			s.addAll(index, randlist);
+		}
+		else
+		{
+			s.addAll(randlist);
+		}
 		break;
 	}
 	case 3:
 	{
-		int max = s.length();
-		int min = 0;
+		int index_min = s.length() - 1;
+		int index_max = 0;
 
 		for (int i = 0; i < s.length(); i++)
 		{
-			if (s.get(s.length() - i) > s.get(max))
+			if (s.get(index_max) < s.get(i))
 			{
-				max = s.length() - i;
+				index_max = i;
+				cout << index_max << " max" << endl;
 			}
-			if (s.get(i) < s.get(min))
+			if (s.get(index_min) > s.get(s.length() - i - 1))
 			{
-				min = i;
+				index_min = s.length() - i - 1;
+				cout << index_min << " min" << endl;;
 			}
 		}
+		s.swap(index_max, index_min);
 
-		s.swap(min, max);
-		cout << s.toString() << endl;
 		break;
 	}
 	case 4:
 	{
-		for (int i = 0; i < rand() % s.length(); i++)
+		for (int i = 0; i < s.length(); i++)
 		{
-			s.swap(rand() % s.length(), rand() % s.length());
+			s.swap(rand() % (s.length() - 1), rand() % (s.length() - 1));
 		}
-		cout << s.toString() << endl;
 		break;
 	}
 	case 5:
@@ -94,6 +107,10 @@ void UserChoice(ArrayList& s, int choice)
 				s.set(i, 0);
 			}
 		}
+		break;
+	}
+	case 6:
+	{
 		cout << s.toString() << endl;
 		break;
 	}
