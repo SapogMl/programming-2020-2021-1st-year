@@ -1,14 +1,5 @@
 #include "ArrayList.h"
 
-
-/* ArrayList::ArrayList(const ArrayList& list)
-{
-	count = list.count;
-	capacity = list.capacity;
-	for (int i = 0; i < count; data[i] = list.data[i], i++) {}
-	str = nullptr;
-} */
-
 ArrayList::~ArrayList()
 {
 	clear();
