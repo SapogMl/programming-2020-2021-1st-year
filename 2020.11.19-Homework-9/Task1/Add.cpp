@@ -56,16 +56,12 @@ double readDouble(double& number)
 
 	for (int i = 0; i < d.size(); i++)
 	{
-		if ((int(d[i]) < 58) and (int(d[i]) > 47))
-		{
-			buf = buf * 10 - '0' + d[i];
-		}
-		else if (int(d[i]) == 46)
+		if (int(d[i]) == 46)
 		{
 			dot = true;
 			continue;
 		}
-		if (dot == true)
+		else if (dot == true)
 		{
 			if (d[i] == '.')
 			{
@@ -76,6 +72,10 @@ double readDouble(double& number)
 			{
 				power++;
 			}
+		}
+		else if ((int(d[i]) < 58) and (int(d[i]) > 47))
+		{
+			buf = buf * 10 - '0' + d[i];
 		}
 		else 
 		{
