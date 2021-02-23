@@ -13,32 +13,31 @@ void options()
 
 void processChoice(int choice, int n)
 {
-	int dim = n;
 	switch(choice)
 	{
 	case 1:
 	{
-		diagSymm(dim);
+		diagSymm(n);
 		break;
 	}
 	case 2:
 	{
-		diagSymmBackwards(dim);
+		diagSymmBackwards(n);
 		break;
 	}
 	case 3:
 	{
-		lines(dim);
+		lines(n);
 		break;
 	}
 	case 4:
 	{
-		oneToN(dim);
+		oneToN(n);
 		break;
 	}
 	case 5:
 	{
-		spiral(dim);
+		spiral(n);
 		break;
 	}
 	break;
@@ -53,6 +52,7 @@ int main()
 	cout << "Размер массива = ";
 	int n = 0;
 	cin >> n;
+
 	int choice = -1;
 
 	do
@@ -63,12 +63,6 @@ int main()
 		processChoice(choice, n);
 		system("pause");
 	} while (choice != 0);
-
-	// diagSymm(n);
-	// diagSymmBackwards(n);
-	// lines(n);
-	// oneToN(n);
-	// spiral(n);
 
 	return EXIT_SUCCESS;
 }
