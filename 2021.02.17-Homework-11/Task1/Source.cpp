@@ -2,24 +2,34 @@
 using namespace std;
 
 void printBits(int a) {
+	bool pos = (a >= 0) ? true : false; //знак
+	if (!pos) { a = -a; } //знак
 	int b = sizeof(a) * 8;
+
 	for (int i = 0; i < b; i++) {
 		unsigned int temp = a;
-		temp = (temp << i) >> (b - 1);
+		temp = (temp << i) >> (b - 1); // сдвиг туда-обратно
+
+		if ((i == 0) && (!pos)) { temp = 1; } //знак
+
 		cout << temp;
 
-		if (i % 8 == 0) {
-			cout << " ";
-		}
+		if (i % 8 == 0) { cout << " "; }
 	}
 	cout << endl;
 }
 
 void printBits(long a) {
+	bool pos = (a >= 0) ? true : false;
+	if (!pos) { a = -a; }
 	int b = sizeof(a) * 8;
+
 	for (int i = 0; i < b; i++) {
 		unsigned long int temp = a;
 		temp = (temp << i) >> (b - 1);
+
+		if ((i == 0) && (!pos)) { temp = 1; }
+
 		cout << temp;
 
 		if (i % 8 == 0) {
@@ -30,10 +40,16 @@ void printBits(long a) {
 }
 
 void printBits(long long a) {
+	bool pos = (a >= 0) ? true : false;
+	if (!pos) { a = -a; }
 	int b = sizeof(a) * 8;
+
 	for (int i = 0; i < b; i++) {
 		unsigned long long int temp = a;
 		temp = (temp << i) >> (b - 1);
+
+		if ((i == 0) && (!pos)) { temp = 1; }
+
 		cout << temp;
 
 		if (i % 8 == 0) {
@@ -43,16 +59,20 @@ void printBits(long long a) {
 	cout << endl;
 }
 
-void printBits(float a) {
-	
+void printBits(float a) { // как сократить до 32 бит?
+	double d = a;
+	long long ll = *((long long*)((void*)&d));
+	printBits(ll);
 }
 
 void printBits(double a) {
-	
+	long long ll = *((long long*)((void*)&a)); 
+	printBits(ll);
 }
 
 void printBits(long double a) {
-	
+	long long ll = *((long long*)((void*)&a)); // ссылка на (float)a -> (void)указатель на a -> (long long)указатель на а -> указатель на (long long*)a
+	printBits(ll);
 }
 
 // всяческое оформление вывода

@@ -1,0 +1,14 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: промежуточный каталог (Debug\) содержит файлы, которые используются совместно с другим проектом (2021.03.03-Homework-12.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  Source.cpp
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(53,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(62,5): warning C4552: "!": результат выражения не используется
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(106,30): warning C4018: <: несоответствие типов со знаком и без знака
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(117,33): warning C4018: <: несоответствие типов со знаком и без знака
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(118,69): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(186,35): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(187,35): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(188,15): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(191,35): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(192,35): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\2021.03.03-Homework-12\Source.cpp(193,15): warning C4553: "==": результат выражения не используется; вы хотели использовать "="?
+  2021.03.03-Homework-12.vcxproj -> D:\ПРОГА\programming-2020-autumn-1st-year\2021.03.03-Homework-12\Debug\calc.exe
