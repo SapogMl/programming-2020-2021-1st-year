@@ -6,13 +6,13 @@
 Добавить возможность заполнения массива идущими подряд числами по возрастанию и по убыванию(важно для проверки правильности подсчета количества сравнений и количества перестановок).
 
 ЧЕКЛИСТ
-создание массива
+x создание массива
 x заполнение случайными числами
 x сортировка пузырьком
-сортировка вставкой
+x сортировка вставкой
 x сортировка выбором
-среднее количество сравнений
-среднее количество перестановок
+x среднее количество сравнений
+x среднее количество перестановок
 x заполнение по возрастанию
 x заполнение по убыванию
 x вывод
@@ -33,9 +33,9 @@ void randomFill(int* array);
 void printArray(int* array);
 
 int* createArray(int length);
-void BubbleSort(int* array);
-void InsertionSort(int* array);
-void SelectionSort(int* array);
+void BubbleSort(int* array, int* cmpm);
+void InsertionSort(int* array, int* cmpm);
+void SelectionSort(int* array, int* cmpm);
 
 void ascendFill(int* array);
 void descendFill(int* array);
@@ -44,17 +44,73 @@ void descendFill(int* array);
 int main() {
 	srand(time(NULL));
 
-	int length;
-	cin >> length;
+	int cm_average;
+	int pm_average;
+	
+	cout << "Bubble Sort:" << '\n';
+	for (int j = 1; j < 5; j++) {
+		cm_average = 0;
+		pm_average = 0;
+		cout << "array length = " << 5 * j;
+		for (int i = 0; i < 1000; i++) {
+			int* array = createArray(j * 5);
+			int* cmpm = new int[2];
+			cmpm[0] = 0;
+			cmpm[1] = 0;
+			randomFill(array);
+			BubbleSort(array, cmpm);
+			cm_average += cmpm[0];
+			pm_average += cmpm[1];
+			delete[] array;
+			delete[] cmpm;
+		}
+		cout << ", avg. comparisons = " << cm_average / 1000 << ", avg. permutations = " << pm_average / 1000 << endl;
+	}
 
-	int* array = createArray(length);
+	cout << '\n';
 
-	randomFill(array);
-	printArray(array);
-	InsertionSort(array);
-	printArray(array);
+	cout << "Insertion Sort:" << '\n';
+	for (int j = 1; j < 5; j++) {
+		cm_average = 0;
+		pm_average = 0;
+		cout << "array length = " << 5 * j;
+		for (int i = 0; i < 1000; i++) {
+			int* array = createArray(j * 5);
+			int* cmpm = new int[2];
+			cmpm[0] = 0;
+			cmpm[1] = 0;
+			// randomFill(array);
+			descendFill(array);
+			InsertionSort(array, cmpm);
+			cm_average += cmpm[0];
+			pm_average += cmpm[1];
+			delete[] array;
+			delete[] cmpm;
+		}
+		cout << ", avg. comparisons = " << cm_average / 1000 << ", avg. permutations = " << pm_average / 1000 << endl;
+	}
 
-	delete[] array;
+	cout << '\n';
+
+	cout << "Selection Sort:" << '\n';
+	for (int j = 1; j < 5; j++) {
+		cm_average = 0;
+		pm_average = 0;
+		cout << "array length = " << 5 * j;
+		for (int i = 0; i < 1000; i++) {
+			int* array = createArray(j * 5);
+			int* cmpm = new int[2];
+			cmpm[0] = 0;
+			cmpm[1] = 0;
+			randomFill(array);
+			SelectionSort(array, cmpm);
+			cm_average += cmpm[0];
+			pm_average += cmpm[1];
+			delete[] array;
+			delete[] cmpm;
+		}
+		cout << ", avg. comparisons = " << cm_average / 1000 << ", avg. permutations = " << pm_average / 1000 << endl;
+	}
 
 	return EXIT_SUCCESS;
 }
@@ -80,36 +136,41 @@ int* createArray(int length)
 	return array;
 }
 
-void BubbleSort(int * array) {
+void BubbleSort(int * array, int* cmpm) {
 	bool flag = true;
 	int t;
 	while (flag == true) {
 		flag = false;
 		for (int i = 1; i < array[0] - 1; i++) {
+			cmpm[0]++;
 			if (array[i] > array[i + 1]) {
 				t = array[i];
 				array[i] = array[i + 1];
 				array[i + 1] = t;
 				flag = true;
+				cmpm[1]++;
 			}
 		}
 	}
 }
 
-void InsertionSort(int * array) {
+void InsertionSort(int * array, int* cmpm) {
 	int j, edge;
 	for (int i = 3; i < array[0]; i++) {
 		j = i;
 		edge = array[i];
+		cmpm[0]++;
 		while ((j > 1) && (array[j - 1] > edge)){
 			array[j] = array[j - 1];
 			j--;
+			cmpm[1]++;
 		}
 		array[j] = edge;
+		cmpm[1]++;
 	}
 }
 
-void SelectionSort(int* array) {
+void SelectionSort(int* array, int* cmpm) {
 	int min;
 	int t;
 	for (int i = 1; i < array[0]; i++) {
