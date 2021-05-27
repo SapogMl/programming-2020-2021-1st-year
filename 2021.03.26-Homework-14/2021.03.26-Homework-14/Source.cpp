@@ -97,22 +97,16 @@ void BubbleSort(int * array) {
 }
 
 void InsertionSort(int * array) {
-	for (int i = 1; i < array[0]; i++) {
-
-	}
-
-
-
-	/*int min, j;
-	for (int i = 2; i < array[0]; i++) {
-		j = i - 1;
-		min = array[i];
-		while ((j > 0) && (array[j] > array[i])) {
-			array[j + 1] = array[j];
+	int j, edge;
+	for (int i = 3; i < array[0]; i++) {
+		j = i;
+		edge = array[i];
+		while ((j > 1) && (array[j - 1] > edge)){
+			array[j] = array[j - 1];
 			j--;
 		}
-		array[j + 1] = min;
-	} */
+		array[j] = edge;
+	}
 }
 
 void SelectionSort(int* array) {
