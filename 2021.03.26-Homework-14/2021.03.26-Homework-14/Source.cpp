@@ -42,7 +42,8 @@ int main() {
 			delete[] cmpm;
 		}
 		cout << ", avg. comparisons = " << cm_average / 1000 << ", avg. permutations = " << pm_average / 1000 << endl;
-	}
+	} 
+	/*
 
 	cout << '\n';
 
@@ -57,7 +58,7 @@ int main() {
 			cmpm[0] = 0;
 			cmpm[1] = 0;
 			// randomFill(array);
-			descendFill(array);
+			ascendFill(array);
 			InsertionSort(array, cmpm);
 			cm_average += cmpm[0];
 			pm_average += cmpm[1];
@@ -74,12 +75,12 @@ int main() {
 		cm_average = 0;
 		pm_average = 0;
 		cout << "array length = " << 5 * j;
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 1; i++) {
 			int* array = createArray(j * 5);
 			int* cmpm = new int[2];
 			cmpm[0] = 0;
 			cmpm[1] = 0;
-			randomFill(array);
+			ascendFill(array);
 			SelectionSort(array, cmpm);
 			cm_average += cmpm[0];
 			pm_average += cmpm[1];
@@ -87,7 +88,7 @@ int main() {
 			delete[] cmpm;
 		}
 		cout << ", avg. comparisons = " << cm_average / 1000 << ", avg. permutations = " << pm_average / 1000 << endl;
-	}
+	} */
 
 	return EXIT_SUCCESS;
 }
@@ -136,14 +137,11 @@ void InsertionSort(int * array, int* cmpm) {
 	for (int i = 3; i < array[0]; i++) {
 		j = i;
 		edge = array[i];
-		cmpm[0]++;
 		while ((j > 1) && (array[j - 1] > edge)){
 			array[j] = array[j - 1];
 			j--;
-			cmpm[1]++;
 		}
 		array[j] = edge;
-		cmpm[1]++;
 	}
 }
 
@@ -153,6 +151,7 @@ void SelectionSort(int* array, int* cmpm) {
 	for (int i = 1; i < array[0]; i++) {
 		min = i;
 		for (int j = i; j < array[0]; j++) {
+			cmpm[0]++;
 			if (array[j] < array[min]) {
 				min = j;
 			}
@@ -160,6 +159,10 @@ void SelectionSort(int* array, int* cmpm) {
 		t = array[i];
 		array[i] = array[min];
 		array[min] = t;
+		if (i != min) {
+			cmpm[1]++;
+		}
+		printArray(array);
 	}
 }
 
